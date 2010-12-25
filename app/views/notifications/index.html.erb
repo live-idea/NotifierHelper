@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <td>
+      <%= link_to t("common.add"), new_notification_path %>
+    </td>
+  </tr>
+</table>
+      
+
+<table class="w100p borderT">
+<% @notifications.each do |notification| %>
+  <tr>
+    <td><%= link_to render(:partial=>"notifications/list_item", :locals => {:notification => notification}), notification%></td>
+    <td width="50px" align="right"><%= link_to t("common.edit"), edit_notification_path(notification) %></td>
+    <td width="50px" align="right"><%= link_to t("common.delete"), notification, :confirm => t("common.are_you_sure"), :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

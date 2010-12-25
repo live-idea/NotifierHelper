@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<table class="header_tr w100p">
+  <tr>
+    <td><%= @group.name %></td>
+  </tr>
+  <tr>
+    <td class="tag">
+      <%= @group.description %>
+    </td>
+  </tr>
+</table>
+<table class="w100p">
+    <% @group.contacts.each do |contact| %>
+      <tr>
+        <td class="checkbox_td">
+          <input type="checkbox"
+                 name="contact_ids[]" 
+                 id="contact_<%=contact.id%>" 
+                 value='<%= contact.id %>'/>
+        </td>
+        <td class="w920">
+          <%=  link_to render(:partial=>"contacts/list_item", :locals => {:contact => contact}), contact%>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+
+
+<%= link_to t("common.edit"), edit_group_path(@group) %> |
+<%= link_to t("common.back"), groups_path %>

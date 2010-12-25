@@ -1,0 +1,135 @@
+<div id="leftMenu">
+  <div>
+    <b>Groups</b>
+    <hr/>
+    <ul>
+      <li>
+       <%= link_to t("common.all"), contacts_path, :class => params[:group_id] ? "" : "selected"   %>
+      </li> 
+      <% current_user.groups.each do |group| %>
+        <li>
+          <%= link_to group.name, contacts_path(:group_id => group.id), :class => params[:group_id].to_i == group.id  ? "selected" : "" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div id="rightContent">    
+    <table>
+      <tr>
+        <td>
+          <%= link_to t("common.add"), new_contact_path %>
+        </td>
+        <td>|</td>
+        <td>
+          <a href="#" onclick="$('#import_gmail').show('fast');">import from gmail</a>
+          <div id="import_gmail" class="popup" >
+            <%= form_tag process_gmail_contacts_path do %>
+              <table width="150px">
+                <tr>
+                  <td>
+                    Email:
+                  </td> 
+                  <td>
+                    <input type="text" name="email" width="140px"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>    
+                    Group:
+                  </td>                   
+                  <td colspan="2">
+                    <select name="group_id" id="select_group_id" onchange="$('#select_group_id').val() == -1 ? $('#div_group_name').show() : $('#div_group_name').hide();">
+                      <% current_user.groups.each do |group| %>
+                      <option value="<%= group.id%>">
+                        <%= group.name%>
+                      </option>
+                      <% end %>
+                      <option value="-1">
+                        Create new
+                      </option>
+                    </select>
+                  </td>
+                </tr                
+                <tr>                  
+                  <td colspan="2">
+                    <div id="div_group_name" class="dnd">
+                      <input type="text" name="group_name" width="140px"/>
+                    </div>
+                  </td>
+                </tr>                
+                <tr>
+                  <td align="left">
+                    <%= submit_tag t("common.add") %>
+                  </td>
+                  <td align="right">
+                    <input width="40px" type="button" value="cancel" onclick="$('#import_gmail').hide('fast');"  />
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+            </div>
+        </td>
+      </tr>
+    </table>
+    <%= form_tag add_to_group_contacts_path do %>
+    <%= will_paginate @contacts %>
+    <table cellspacing="0">
+      <%if @contacts.size > 0 %>
+      <tr class="header_tr">
+        <th>
+          <input type="checkbox" id="checkAll" onclick="$('.checkbox_td input').attr('checked', $('#checkAll').is(':checked'));" />
+        </th>      
+        <th id="contact_actions" colspan="3" align="right">
+          <div>
+            <%=t("common.selected_to")%>   
+            <select name="group_id">
+              <% current_user.groups.each do |group| %>
+              <option value="<%= group.id%>">
+                <%= group.name%>
+              </option>
+              <% end %>
+            </select>
+           
+            <%= submit_tag t("common.add") %>
+            <input type="button"
+                   onclick="var val = []; 
+                     $('.checkbox_td > input:checkbox:checked').each(function(i){val[i] = $(this).val() }); 
+                     $.post('<%=remove_multiple_contacts_path%>?contact_ids=' + val );"
+                     value="<%=t("common.delete_permanently")%>"  
+                     />
+            <% if params[:group_id] %>
+            <input type="button"
+                   onclick="var val = []; 
+                     $('.checkbox_td > input:checkbox:checked').each(function(i){val[i] = $(this).val() }); 
+                     $.post('<%=remove_multiple_contacts_path%>?group_id=<%=params[:group_id]%>&contact_ids=' + val );"
+                     value="<%=t("common.delete_from_group")%>"  
+                     />
+            <% end %>
+
+          </div>
+        </th>
+      </tr>
+      <% end %>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td class="checkbox_td">
+          <input type="checkbox"
+                 name="contact_ids[]" 
+                 id="contact_<%=contact.id%>" 
+                 value='<%= contact.id %>'
+                 />
+        </td>
+        <td class="w600">
+          <%=  link_to render(:partial=>"contacts/list_item", :locals => {:contact => contact}), contact%>
+        </td>
+        <td width="50px" align="right"><%= link_to t("common.edit"), edit_contact_path(contact) %></td>
+        <td width="50px" align="right"><%= link_to t("common.delete"), contact, :confirm => t("common.are_you_sure"), :method => :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+  <%= will_paginate @contacts %>
+  <% end %>
+  <br />  
+</div>
+

@@ -1,0 +1,22 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div id="leftMenu">
+  <%if(!current_user)%>
+  <ul>
+    <li>
+      <%=link_to t(".login"), new_user_session_path %>
+    </li>
+    <li>
+      <%=link_to t(".registration"), new_user_registration_path %>
+    </li>
+  </ul>
+  <%end%>
+</div>
+<div id="rightContent">
+  <p>
+    Site for sending messages.
+  </p>
+</div>

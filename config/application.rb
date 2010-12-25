@@ -31,12 +31,41 @@ module NotifierHelper
     # config.i18n.default_locale = :de
 
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w()
+    config.action_view.javascript_expansions[:defaults] = %w(jrails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    
+    %w(observers).each do |dir|
+      config.load_paths << "#{Rails.root}/app/#{dir}"
+    end
+    
+    config.active_record.observers = :user_observer
+    
+
   end
+  
+    require 'tlsmail'
+    Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+    
+    ActionMailer::Base.delivery_method = :smtp
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.raise_delivery_errors = true    
+    
+    ActionMailer::Base.smtp_settings = {
+         :enable_starttls_auto => true,
+         
+         :address => "smtp.gmail.com",
+         :port => 587,
+         :domain => "gmail.com",
+         :authentication => :plain,
+         :user_name => "notifierh@gmail.com",
+         :password => "!!!asdqwe999"
+         
+      }
+   
 end

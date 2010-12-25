@@ -5,7 +5,21 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql'
+
+gem 'devise'
+
+gem 'formtastic', '~> 1.1.0'
+
+gem 'gmail_contacts'
+
+gem "will_paginate", "~> 3.0.pre2"
+
+gem "mail"
+
+gem 'tlsmail'
+
+gem 'resque'
 
 # Use unicorn as the web server
 # gem 'unicorn'

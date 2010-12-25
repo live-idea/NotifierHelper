@@ -1,0 +1,20 @@
+<div class="create_form">
+  
+<%= semantic_form_for @notification_context do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :subject %>
+      <%= form.input :body, :as => :text %>
+      <%= form.input :sms_body, :as => :text %>
+      <%= form.input :frequency,  :as => :select, :collection => ["one time", "daily", "weekends", "working days", "weekly", "monthly", "yearly"] %>
+      <%= form.input :start_date, :as=>:date_picker  %>
+      <%= form.input :end_date, :as=>:date_picker  %>
+      <%= form.input :send_on, :as=>:date_picker  %>
+      <%= form.input :status %>      
+     
+    <% end %>
+    <% form.buttons do %>
+      <%= form.commit_button %>
+    <% end %>
+  <% end %>
+  
+</div>

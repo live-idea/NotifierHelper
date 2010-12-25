@@ -1,0 +1,31 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+      <table class="ListItem w100p">
+        <tr>
+          <td width="25%"><%= contact.fullname %></td>
+          <td width="25%"><%= contact.comment %></td>
+          <td width="25%"><%= contact.email %></td>
+          <td width="15%"><%= contact.phonenumber %></td>   
+          <td width="5%">
+            <%if contact.send_email %>
+              <img src="/images/icons/email.png" width="20px"/>
+            <%end%>
+          </td>
+          <td width="5%">
+            <%if contact.send_email %>
+              <img src="/images/icons/phone.png"  width="20px"/>
+            <%end%>
+          </td>                   
+        </tr>
+        <tr>
+          <td colspan="6" class="tag">
+            <% contact.groups.each do |group| %>
+            (
+            <%= group.name %>
+            )&nbsp;&nbsp;&nbsp;
+            <%end%>
+          </td>
+        </tr>
+      </table>

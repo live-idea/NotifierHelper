@@ -1,0 +1,214 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Subject:</b>
+  <%= @notification.subject %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @notification.body %>
+</p>
+
+<p>
+  <b>Sms body:</b>
+  <%= @notification.sms_body %>
+</p>
+
+<p>
+  <b>Frequency:</b>
+  <%= @notification.frequency %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @notification.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @notification.end_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @notification.status %>
+</p>
+
+<%= form_tag add_contacts_notifications_path, :remote => true, :onsubmit => 'prepare_data();' do %>
+<p>
+  <a href="#" onclick="$('#add_receipient').show('fast');">add receipient</a>
+  <div id="add_receipient" class="popup" >    
+    <input type="hidden" name="id" value="<%= @notification.id  %>"/>
+      <table width="360px">
+        <tr>
+          <td colspan="2" >
+            <select onchange="reload_contacts(this)" style="width: 200px">
+              <option>Select group</option> 
+              <option value="0">
+               <%= t("common.all") %>
+              </option> 
+              <% current_user.groups.each do |group| %>
+                <option value="<%=  group.id %>">
+                  <%=  group.name %>
+                </option>
+              <% end %>              
+            </select>
+          </td>        
+        </tr>
+        <tr>
+          <td align="left" colspan="2">
+            <input name="filter" id="search_filter" type="text"  style="width: 200px">        
+          </td>
+        </tr>
+        <tr>
+          <td> 
+            <div>            
+              <%= render(:partial=>"contacts/contacts_for_notification", :locals => {:contacts => []})%>
+            </div>
+          </td>
+          <td>
+            <div>  
+              <div class='dnd_panel'> 
+              <p>Select: 
+                  <a href='#' onclick='return $.dds.selectAll("list_2");'>all</a> 
+                  <a href='#' onclick='return $.dds.selectNone("list_2");'>none</a> 
+                  <a href='#' onclick='return $.dds.selectInvert("list_2");'>invert</a> 
+              </p> 
+              <ul id="list_2"> 
+              </ul> 
+              <input type="hidden" id='list_2_serialised' name="contact_ids[]" />
+              </div>  
+            </div>               
+          </td>
+        </tr>        
+        <tr>
+          <td align="left">
+            <%= submit_tag t("common.add") %>
+          </td>
+          <td align="right">
+            <input width="40px" type="button" value="cancel" onclick="$('#add_receipient').hide('fast');"  />
+          </td>
+        </tr>
+      </table>
+
+  </div>
+<hr/>
+</p>
+
+  <%if @notification.contacts.size > 0 %>
+  <p style="text-align:right;font-style: italic; color: gray;">    
+    <b>has &nbsp; <%= @notification.contacts.size %> &nbsp; receipients</b>
+    <hr/>
+  </p>
+  <%end%>
+
+<p>
+<div id="div_recipients">
+  <%= will_paginate @receipients %>
+  <table class="w100p">
+    <%if @receipients.size > 0 %>
+    <tr class="header_tr">
+      <th>
+        <input type="checkbox" id="checkAll" onclick="$('.checkbox_td input').attr('checked', $('#checkAll').is(':checked'));" />
+      </th>      
+      <th id="contact_actions" colspan="3" align="right">
+        <div>
+          <input type="button"
+                 onclick="var val = []; 
+                   $('.checkbox_td > input:checkbox:checked').each(function(i){val[i] = $(this).val() }); 
+                   $.post('<%=remove_contacts_notifications_path%>?notification_id=<%= @notification.id %>&contact_ids=' + val );"
+                   value="<%=t("common.remove_selected")%>"  
+                   />
+        </div>
+      </th>
+    </tr>
+    <% end %>    
+    <% @receipients.each do |rec| %>
+      <% if rec.contact %>
+      <tr>
+        <td class="checkbox_td">
+          <input type="checkbox"
+                 name="contact_ids[]" 
+                 id="contact_<%=rec.contact.id%>" 
+                 value='<%= rec.contact.id %>'/>
+        </td>
+        <td class="w920">
+          <%=  link_to render(:partial=>"contacts/list_item", :locals => {:contact => rec.contact}), rec.contact%>
+        </td>
+      </tr>
+      <%end%>
+    <% end %>
+  </table>
+  <%= will_paginate @receipients %>
+</div>
+</p>
+<% end %>
+<%= link_to 'Edit', edit_notification_path(@notification) %> |
+<%= link_to 'Back', notifications_path %> |
+<a href="<%=process_mails_notifications_path%>?notification_id=<%= @notification.id %>">Send</a>
+
+
+<script type="text/javascript">
+  function reload_contacts(l)
+  {
+    if(l.value > 0)
+      $.post("<%=get_by_group_contacts_path%>?notification_id=<%= @notification.id  %>&group_id="+l.value);
+    else if(l.value === '0')
+      $.post("<%=get_by_group_contacts_path%>?notification_id=<%= @notification.id %>");
+  }
+  
+  var My = {}     
+  My.List = {
+        Filter : function (inputSelector, listSelector) {
+
+                // Sanity check  
+                var inp, rgx = new RegExp(), titles = $(listSelector), keys;
+                if (titles.length == 0) {
+                        return false;
+                }
+
+                // The list with keys to skip (esc, arrows, return, etc)
+                // 8 is backspace, you might want to remove that for better usability
+                keys = [ 13, 27, 32, 37, 38, 39, 40];
+
+                // binding keyup to the unordered list
+                $(inputSelector).bind('keyup', function (e) {
+                        if ($.inArray(e.keyCode, keys) >= 0) {
+                                return false;
+                        }
+
+                        // Building the regex from our user input, 'inp' should be escaped
+                        inp = $(this).attr('value');
+                        rgx.compile(inp, 'im');
+                        titles.each(function () {
+                                if (rgx.source !== '' && !rgx.test($(this).html())) {
+                                        $(this).hide();
+                                } else {
+                                        $(this).show();    
+                                }
+                        });
+                });
+        }
+};
+
+function init_filter(){
+// When the DOM is ready
+$(document).ready(function () {
+        // Attach the filter to our input and list
+        My.List.Filter('input#search_filter', '#list_1>li');
+});
+}
+
+function prepare_data(){
+  el = document.getElementById('list_2_serialised');
+  el.value = el.textContent;
+  $('#add_receipient').hide('fast');
+  //$('#list_2_serialised').val($('#list_2_serialised').innerHTML);
+}
+  
+link_lists();
+  
+ 
+  
+</script>

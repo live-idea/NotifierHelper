@@ -1,0 +1,21 @@
+<div class="create_form">
+
+  <%= semantic_form_for @contact do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :firstname %>
+      <%= form.input :lastname %>
+      <%= form.input :email %>
+      <%= form.input :phonenumber %>
+      <%= form.input :fb_id %>
+      <%= form.input :comment, :as => :text %>
+      <%= form.input :send_email %>
+      <%= form.input :send_sms %>
+      <%= form.input :only_free_sms %>
+      <%= form.input :groups, :as => :check_boxes, :collection => current_user.groups.find(:all, :order => "name ASC") %>
+    <% end %>
+    <% form.buttons do %>
+      <%= form.commit_button %>
+    <% end %>
+  <% end %>
+  
+</div>

@@ -1,0 +1,32 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%if(current_user)%>
+<div id="Menu">
+  <table width="100%">
+    <tr>
+      <td width="50px">
+        <%=link_to t(".groups"), groups_path, :class=>params[:controller] == "groups"  ? "selected" : ""  %>
+      </td>
+      <td width="60px">
+        <%=link_to t(".contacts"), contacts_path, :class=>params[:controller] == "contacts"  ? "selected" : ""%>
+      </td>
+      <td width="50px">
+        <%=link_to t(".events"), events_path, :class=>params[:controller] == "events"  ? "selected" : ""%>
+      </td>     
+      <td width="50px">
+        <%=link_to t(".notifications"), notifications_path, :class=>params[:controller] == "notifications"  ? "selected" : ""%>
+      </td>      
+      <td></td>
+      <td align="right" width="50px">
+        <%=link_to t(".profile"), edit_profile_path(current_user.profile) %>
+      </td> 
+      <td align="right" width="50px">
+        <%=link_to t(".logout"), destroy_user_session_path %>
+      </td> 
+    </tr>
+  </table>
+  <hr/>
+</div>
+<%end%>

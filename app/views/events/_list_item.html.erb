@@ -1,0 +1,17 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+      <table class="ListItem">
+        <tr>
+          <td colspan="2" width="840px"><%= event.title %></td>
+        </tr>
+        <tr>
+          <td class="tag">
+            <%= event.description.split[0..10] %>
+          </td>
+          <td width="100px" class="tag">
+            <%= event.start_date %>
+          </td>          
+        </tr>
+      </table>

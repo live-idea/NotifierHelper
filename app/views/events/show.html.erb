@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p class="title">
+  <%= @event.title %>
+</p>
+<p>
+  <b>Date:</b>
+  <%= @event.start_date %>
+  <hr/>
+</p>
+
+<p>  
+  <%= raw (@event.description) %>
+</p>
+
+<%= link_to t("common.add_notification"), new_event_notification_path(:event_id => @event.id) %>
+<table class="w100p borderT">
+<% @event.notifications.each do |notification| %>
+  <tr>
+    <td><%= link_to render(:partial=>"notifications/list_item", :locals => {:notification => notification}), notification%></td>
+    <td width="50px" align="right"><%= link_to t("common.edit"), edit_notification_path(notification) %></td>
+    <td width="50px" align="right"><%= link_to t("common.delete"), notification, :confirm => t("common.are_you_sure"), :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

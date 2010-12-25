@@ -1,0 +1,24 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div id="contacts_div">
+        <div class='dnd_panel'> 
+        <p>Select: 
+            <a href='#' onclick='return $.dds.selectAll("list_1");'>all</a> 
+            <a href='#' onclick='return $.dds.selectNone("list_1");'>none</a> 
+            <a href='#' onclick='return $.dds.selectInvert("list_1");'>invert</a> 
+        </p> 
+
+        <ul id="list_1"> 
+            <% contacts.each do |contact| %>
+              <li id="<%= contact.id%>"><%= contact.fullname %></li> 
+            <%end%>      
+        </ul> 
+        <span id='list_1_serialised'></span> 
+        </div>           
+
+
+
+</div>

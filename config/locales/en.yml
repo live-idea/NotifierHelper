@@ -2,4 +2,39 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  partials:
+    menu:
+      groups: "groups"
+      contacts: "contacts"
+      logout: "logout"
+      profile: "profile"
+      events: "events"
+      notifications: "notifications"
+  home:
+    index:
+      login: "login"
+      registration: "registration"
+  common:
+    yes: "yes"
+    no: "no"
+    delete: "delete"
+    delete_permanently: "delete permanently"
+    delete_from_group: "delete from group"
+    remove_selected: "remove selected"
+    cancel: "cancel"
+    new: "new"
+    edit: "edit"
+    contacts: "contacts"
+    are_you_sure: "Are you sure?"
+    listing_groups: "Listing groups"
+    description: "Description"
+    name: "Name"
+    add: "add"
+    filter: "filter"
+    back: "back"
+    show: "show"
+    all: "all"
+    selected_to: "selected to"
+    add_notification: "add notification"
+    
+

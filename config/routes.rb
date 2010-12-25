@@ -1,4 +1,44 @@
 NotifierHelper::Application.routes.draw do
+  
+  resources :notes
+
+  devise_for :users
+  
+  root :to => "home#index" 
+  resources :pages do
+    member do
+      post :pdf
+    end
+    collection do
+      get :top
+    end
+    resources :comments
+    resource :photo
+  end
+  
+  resources :groups
+  resources :notes
+  resources :events do
+    resources :notifications
+  end
+  resources :notifications do
+    collection do
+      post :add_contacts
+      post :remove_contacts
+      get :process_mails
+    end
+  end
+  resources :contacts do
+    collection do
+      post :add_to_group
+      post :remove_multiple
+      post :get_by_group
+      post :process_gmail
+      get :response_gmail
+    end
+  end
+  resources :profiles
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

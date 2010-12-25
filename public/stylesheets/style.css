@@ -1,0 +1,251 @@
+body{
+    background-color: gainsboro;
+}
+a { 
+    color: #1928ee;
+    text-decoration: none;
+}
+a:hover { color: #e63100; }
+
+ul { list-style: none; }
+.selected {
+    text-decoration: none;
+    color: black;
+}
+#container {
+  width: 960px;
+  margin: auto;
+  position: relative;
+}
+.userbar ul { list-style: none; }
+.userbar ul li { display: inline; }
+.clear { clear: both; }
+.logo { float: left; }
+.logo a img { border: 0; }
+#content{
+    margin: 10px auto;  
+    background-color: white;
+    border: solid 1px black;
+    padding: 5px;
+    width: 960px;
+    height: 100%
+}
+#main{    
+    width: 100%; 
+    float:left;
+}
+#footer{
+    margin-top: 100px;
+}
+#logo { 
+    border: solid 1px black;
+    font-size: 20pt;
+    height: 30px;
+    margin-left: -50px;
+    background-color: white;
+    padding: 10px;
+    width: 200px
+        
+}
+#leftMenu{
+    width: 200px;
+    float: left;
+}
+#rightContent{
+    width: 740px;
+    float: right;    
+}
+.ListItem{
+    border-bottom: solid 1px gray;
+    /*width: 600px;*/
+    color: black;
+}
+.ListItem:hover{
+    background-color: azure;
+}
+.tag{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 9pt;
+    color: olivedrab;
+}
+.header_tr{
+    border-bottom: solid 1px gray;
+    background-color: lightgray;
+}
+.w100p{
+    width: 100%;
+}
+.w600{
+    width: 600px;
+}
+.w800{
+    width: 800px;
+}
+.w920{
+    width: 920px;
+}
+.borderT{
+    border-top: solid 1px gray;
+}
+.content_panel{
+    padding: 10px;
+}
+.checkbox_td{
+    width: 40px;
+}
+.create_form{
+    margin: 20px auto;  
+    background-color: white;
+    padding: 5px;
+    width: 700px;
+    height: 100%
+}
+.description input{
+    width: 400px;
+    height: 200px;    
+}
+.field input{
+    width: 400px;
+}
+
+.popup{
+    display: none;
+    position: absolute;
+    margin: 20px auto;
+    background-color: palegoldenrod;
+    border: inset 2px black;
+}
+.form_explanation{
+    font-style: italic;
+    font-size: 12pt;
+    width: 100%;
+    padding: 10px;
+    
+       
+}
+
+.title{
+    font-size: 16pt;
+    font-family: serif;
+    font-weight: 800;
+}
+.dnd{
+    display: none;
+}
+
+/* -------------------------------------------------- */
+/* ----This section is for Drag And Drop panels ----- */
+/* -------------------------------------------------- */
+.dnd_panel {float:left;width:160px; height: 270px;}
+ 
+.dnd_panel ul {
+    list-style-type:none;
+    border:1px solid #999;
+    background:azure;
+    padding:5px;
+    min-height:150px;
+    width:160px;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+ 
+.dnd_panel li {
+    display:block;
+    border:1px solid #999;
+    background:#fff;
+    width:125px;
+    padding:5px 10px;
+    margin-bottom:5px;
+}
+.dnd_panel span{
+    display: none;
+}
+ 
+.dnd_panel .dds_selected {
+    background:#ffc;
+}
+.dnd_panel .dds_ghost {
+    opacity:0.5;
+}
+.dnd_panel .dds_move {
+    background:#cfc;
+}
+.dnd_panel .dds_hover {
+    background:#fc9;
+    border:3px dashed #c96;
+}
+ 
+.dnd_panel .holder {
+    border:3px dashed #333;
+    background:#fff;
+}
+/* -------------------------------------------------- */
+/* End of section for Drag And Drop panels */
+/* -------------------------------------------------- */
+/* -------------------------------------------------- */
+/* section for create form panels */
+/* -------------------------------------------------- */
+
+.create_form .inputs{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid gainsboro;
+    border-bottom: 2px solid darkgray;
+    background-color: palegoldenrod;
+    
+}
+
+.create_form .buttons{
+    text-align: left;    
+    
+}
+.create_form .inputs input{
+    width:400px;
+}
+.create_form .inputs input[type="hidden"]{
+    width:10px;
+}
+.create_form .inputs input[type="checkbox"]{
+    width:50px;
+}
+
+.create_form .inputs .check_boxes optional{
+    border-bottom: 2px solid darkgray;    
+}
+.create_form .ui-date-picker{
+    width: 160px !important; 
+}
+.create_form .inputs textarea{
+    width:400px;
+}
+
+
+/* -------------------------------------------------- */
+/* End of section for create form panels */
+/* -------------------------------------------------- */
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
+.ui-timepicker-div dl{ text-align: left; }
+.ui-timepicker-div dl dt{ height: 25px; }
+.ui-timepicker-div dl dd{ margin: -25px 0 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+
+.yui-skin-sam #event_description_insertimage_width, #event_description_insertimage_height{
+    width: 25px !important; 
+}
+.yui-skin-sam .yui-toolbar-subcont{
+    overflow: hidden !important; 
+}
+.yui-skin-sam .yui-editor-panel .yui-toolbar-group-textflow{
+    padding: 0px !important; 
+    margin: 0px !important; 
+    width: 187px !important; 
+}
+
+
+.yui-skin-sam .yui-editor-body-cont{
+    width: 408px !important; 
+}

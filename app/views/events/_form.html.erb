@@ -1,0 +1,37 @@
+<div class="create_form">
+  
+  <script type="text/javascript">
+    
+    var myEditor = new YAHOO.widget.Editor('event_description', {
+    height: '300px',
+    width: '650px',
+    dompath: true, //Turns on the bar at the bottom
+    animate: true //Animates the opening, closing and moving of Editor windows
+});
+myEditor.render();
+ 
+//Inside an event handler after the Editor is rendered
+YAHOO.util.Event.on('event_submit', 'click', function() {
+    //Put the HTML back into the text area
+    myEditor.saveHTML();
+ 
+    //The var html will now have the contents of the textarea
+    var html = myEditor.get('element').value;
+});
+</script>
+  
+  <%= semantic_form_for @event do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :title %>
+      <div class="yui-skin-sam">
+      <%= form.input :description, :as => :text %>
+      </div>
+      <%= form.input :start_date, :as=>:date_picker  %>
+      <%= form.input :end_date, :as=>:date_picker %>
+    <% end %>
+    <% form.buttons do %>
+      <%= form.commit_button %>      
+    <% end %>
+  <% end %>
+    
+</div>

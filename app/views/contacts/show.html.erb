@@ -1,0 +1,68 @@
+<div class="content_panel">
+  <p id="notice"><%= notice %></p>
+  <div class="show">    
+    <p class="title">
+      <%= @contact.fullname %>
+    </p>
+    <p class="comment">
+      <%= @contact.comment %>
+    </p>    
+    <hr/>
+    <table width="100%">
+      <tr>
+        <td width="50px">
+          <img src="/images/icons/email.png"/>
+        </td>
+        <td>
+          <%= @contact.email %>
+        </td>
+      </tr>
+      <tr>
+        <td width="50px">
+          <img src="/images/icons/phone.png"/>
+        </td>
+        <td>
+          <%= @contact.phonenumber %>
+        </td>
+      </tr>
+      <tr>
+        <td width="50px">
+          <img src="/images/icons/facebook.png"/>
+        </td>
+        <td>
+          <%= @contact.fb_id %>
+        </td>
+      </tr>      
+    </table>
+    <hr/>
+    <p>
+      <b>Send email:</b>
+      <%= @contact.send_email %>
+    </p>
+
+    <p>
+      <b>Send sms:</b>
+      <%= @contact.send_sms %>
+    </p>
+
+    <p>
+      <b>Only free sms:</b>
+      <%= @contact.only_free_sms %>
+    </p>
+    <hr/>
+    <% if @contact.groups.size > 0 %>
+    <b>belongs to groups: &nbsp;&nbsp;&nbsp;<b/>
+    <span class="tag">
+      <% @contact.groups.each do |group| %>
+      (
+      <%= group.name %>
+      )&nbsp;&nbsp;&nbsp;
+      <%end%>
+    </span>
+    <hr/>
+    <%end%>
+  </div>
+
+  <%= link_to t("common.edit"), edit_contact_path(@contact) %> |
+  <%= link_to t("common.back"), contacts_path %>
+</div>
