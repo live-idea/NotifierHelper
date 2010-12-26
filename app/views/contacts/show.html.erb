@@ -33,6 +33,16 @@
           <%= @contact.fb_id %>
         </td>
       </tr>      
+      <tr>
+        <td width="50px">
+          <img src="/images/icons/vk.png"/>
+        </td>
+        <td>
+          <% if @contact.vk_id %>
+            <a href="http://vk.com/id<%= @contact.vk_id %>"><%= @contact.vk_id %></a>
+          <% end %>
+        </td>
+      </tr>      
     </table>
     <hr/>
     <p>
