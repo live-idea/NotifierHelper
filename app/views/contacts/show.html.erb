@@ -17,6 +17,7 @@
           <%= @contact.email %>
         </td>
       </tr>
+      <% if @contact.phonenumber %>            
       <tr>
         <td width="50px">
           <img src="/images/icons/phone.png"/>
@@ -25,24 +26,27 @@
           <%= @contact.phonenumber %>
         </td>
       </tr>
+      <% end %>
+      <% if @contact.fb_id %>      
       <tr>
         <td width="50px">
           <img src="/images/icons/facebook.png"/>
         </td>
         <td>
-          <%= @contact.fb_id %>
+          <a href="http://www.facebook.com/profile.php?id=<%= @contact.fb_id %>"><%= @contact.fb_id %></a>
         </td>
       </tr>      
+      <% end %>
+      <% if @contact.vk_id %>      
       <tr>
         <td width="50px">
           <img src="/images/icons/vk.png"/>
         </td>
-        <td>
-          <% if @contact.vk_id %>
+        <td>          
             <a href="http://vk.com/id<%= @contact.vk_id %>"><%= @contact.vk_id %></a>
-          <% end %>
         </td>
       </tr>      
+      <% end %>
     </table>
     <hr/>
     <p>
