@@ -58,12 +58,14 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.xml
   def add_to_group
-    if(params[:group_id] && params[:contact_ids])
+    if(params[:group_id] && params[:group_id].to_s.length > 0 && params[:contact_ids] && params[:contact_ids].to_s.length > 0)
       contacts = current_user.contacts.find(params[:contact_ids])    
       group = current_user.groups.find(params[:group_id])
       contacts = contacts.collect{|el| group.contacts.include?(el) ? nil : el}.compact
       group.contacts << contacts
       redirect_to(contacts_path, :notice => contacts.size.to_s + ' was successfully added to' + group.name) 
+    else
+      redirect_to contacts_path
     end
     
   end
@@ -124,10 +126,13 @@ class ContactsController < ApplicationController
   end
   
   def process_gmail
-    if params['email']
+    if params['email'] && params['email'].to_s.length > 0
       gmail_contacts = GmailContacts.new
       redirect_url = response_gmail_contacts_path(:email => params['email'], :group_id => params['group_id'], :group_name => params['group_name'], :only_path => false)
       redirect_to gmail_contacts.authsub_url(redirect_url)
+      
+    else
+      redirect_to contacts_path
     end
   end
   
